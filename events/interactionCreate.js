@@ -51,12 +51,6 @@ module.exports = (client) => {
               .setCustomId('telefone')
               .setLabel('Telefone')
               .setStyle(TextInputStyle.Short)
-          ),
-          new ActionRowBuilder().addComponents(
-            new TextInputBuilder()
-              .setCustomId('vulgo')
-              .setLabel('Vulgo')
-              .setStyle(TextInputStyle.Short)
           )
         );
 
@@ -69,7 +63,7 @@ module.exports = (client) => {
         const nome = interaction.fields.getTextInputValue('nome');
         const id = interaction.fields.getTextInputValue('id');
         const telefone = interaction.fields.getTextInputValue('telefone');
-        const vulgo = interaction.fields.getTextInputValue('vulgo');
+        
 
         if (!/^\d+$/.test(id)) {
           return interaction.reply({ content: '❌ ID inválido!', flags: 64 });
@@ -169,7 +163,6 @@ module.exports = (client) => {
             .setTitle('📋 Novo Registro')
             .addFields(
               { name: 'Nome', value: dados.nome },
-              { name: 'Vulgo', value: dados.vulgo },
               { name: 'ID', value: dados.id },
               { name: 'Telefone', value: dados.telefone },
               { name: 'Cargo', value: role ? role.name : dados.cargo }
@@ -216,7 +209,6 @@ module.exports = (client) => {
         const getField = (n) => embed.data.fields.find(f => f.name === n)?.value || '';
 
         const id = getField('ID');
-        const vulgo = getField('Vulgo');
         const nome = getField('Nome');
         const telefone = getField('Telefone');
 
@@ -238,12 +230,12 @@ module.exports = (client) => {
         await membro.roles.remove(config.cargoRemover);
 
         // ===== REGISTRO CENTRAL =====
-        const canalRegistro = interaction.guild.channels.cache.get('1487297164811046912');
+        const canalRegistro = interaction.guild.channels.cache.get('1394784206009139220');
 
         if (canalRegistro) {
           const linha = `| ----------------------------------------------------------------|`;
 
-          const mensagem = `\n📜 **Batizado**\n\n👤 **Nome:** ${nome}\n🕶️ **Vulgo:** ${vulgo}\n🆔 **ID:** ${id}\n📞 **Telefone:** ${telefone}\n🏷️ **Cargo:** ${sistema.nome}\n🧑‍💼 **Aprovado por:** ${interaction.member.displayName}\n\n${linha}\n`;
+          const mensagem = `\n📜 **Registro**\n\n👤 **Nome:** ${nome}\n🆔 **ID:** ${id}\n📞 **Telefone:** ${telefone}\n🏷️ **Cargo:** ${sistema.nome}\n🧑‍💼 **Aprovado por:** ${interaction.member.displayName}\n\n${linha}\n`;
 
           canalRegistro.send(mensagem);
         }
