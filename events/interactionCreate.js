@@ -141,11 +141,6 @@ module.exports = (client) => {
           return interaction.reply({ content: '✅ Recrutador selecionado!', flags: 64 });
         }
 
-        if (interaction.customId === 'select_cidade') {
-          dados.cidade = interaction.values[0];
-          return interaction.reply({ content: '✅ Cidade Selecionada!', flags: 64 });
-        }
-
         if (interaction.customId === 'select_cargo') {
 
           dados.cargo = interaction.values[0];
