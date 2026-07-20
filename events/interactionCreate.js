@@ -37,7 +37,13 @@ module.exports = (client) => {
           new ActionRowBuilder().addComponents(
             new TextInputBuilder()
               .setCustomId('nome')
-              .setLabel('Nome e Sobrenome')
+              .setLabel('Nome')
+              .setStyle(TextInputStyle.Short)
+          ),
+          new ActionRowBuilder().addComponents(
+            new TextInputBuilder()
+              .setCustomId('sobrenome')
+              .setLabel('Sobrenome')
               .setStyle(TextInputStyle.Short)
           ),
           new ActionRowBuilder().addComponents(
@@ -90,7 +96,7 @@ module.exports = (client) => {
           return interaction.reply({ content: '❌ Nenhum recrutador encontrado!', flags: 64 });
         }
 
-        dadosTemp[interaction.user.id] = { nome, id, telefone, vulgo };
+        dadosTemp[interaction.user.id] = { nome, id, telefone };
 
         const selectRecrutador = new ActionRowBuilder().addComponents(
           new StringSelectMenuBuilder()
@@ -215,8 +221,8 @@ module.exports = (client) => {
         const sistema = config.cargosSistema[cargoEscolhido];
         if (!sistema) return console.log('⚠️ Cargo não configurado');
 
-        let nickname = `[${sistema.nome}] ${id} | ${vulgo}`;
-        if (nickname.length > 32) nickname = `[${sistema.nome}] ${vulgo}`.slice(0, 32);
+        let nickname = `[${sistema.nome}] ${id} | ${sobrenome}`;
+        if (nickname.length > 32) nickname = `[${sistema.nome}] ${sobrenome}`.slice(0, 32);
 
         await membro.setNickname(nickname).catch(() => {});
 
@@ -235,7 +241,7 @@ module.exports = (client) => {
         if (canalRegistro) {
           const linha = `| ----------------------------------------------------------------|`;
 
-          const mensagem = `\n📜 **Registro**\n\n👤 **Nome:** ${nome}\n🆔 **ID:** ${id}\n📞 **Telefone:** ${telefone}\n🏷️ **Cargo:** ${sistema.nome}\n🧑‍💼 **Aprovado por:** ${interaction.member.displayName}\n\n${linha}\n`;
+          const mensagem = `\n📜 **Registro**\n\n👤 **Nome:** ${nome}\n🆔 **Sobrenome:** ${sobrenome}\n🆔 **ID:** ${id}\n📞 **Telefone:** ${telefone}\n🏷️ **Cargo:** ${sistema.nome}\n🧑‍💼 **Aprovado por:** ${interaction.member.displayName}\n\n${linha}\n`;
 
           canalRegistro.send(mensagem);
         }
