@@ -49,7 +49,7 @@ module.exports = (client) => {
           new ActionRowBuilder().addComponents(
             new TextInputBuilder()
               .setCustomId('telefone')
-              .setLabel('Telefone')
+              .setLabel('Telefone (in-game)')
               .setStyle(TextInputStyle.Short)
           )
         );
