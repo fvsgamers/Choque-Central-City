@@ -173,7 +173,8 @@ module.exports = (client) => {
               { name: 'Sobrenome', value: dados.sobrenome },
               { name: 'ID', value: dados.id },
               { name: 'Telefone', value: dados.telefone },
-              { name: 'Recrutador', value: dados.recrutador},
+              { name: 'Recrutador', value: `<@${dados.recrutador}>`},
+              //{ name: 'Recrutador', value: dados.recrutador},
               { name: 'Cargo', value: role ? role.name : dados.cargo }
             );
 
