@@ -27,7 +27,7 @@ module.exports = (client) => {
       }
 
       // ===== ABRIR FORM =====
-      if (interaction.isButton() && interaction.customId === 'btn_abrir_formulario') {
+      if (interaction.isButton() && interaction.customId === 'abrir_formulario') {
 
         const modal = new ModalBuilder()
           .setCustomId('formulario_registro')
