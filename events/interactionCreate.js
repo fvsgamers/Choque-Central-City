@@ -121,7 +121,6 @@ module.exports = (client) => {
             .setPlaceholder('Selecione o cargo')
             .addOptions(cargosOptions)
         );
-
           return interaction.reply({
           content: 'Selecione o recrutador:',
           components: [selectRecrutador],
@@ -131,8 +130,9 @@ module.exports = (client) => {
           content: 'Selecione recrutador e cargo:',
           components: [selectRecrutador, selectCargo],
           flags: 64
-        });
-      }*/
+        });*/
+        
+      }
 
       // ===== SELECT =====
         if (interaction.isStringSelectMenu()) {
@@ -142,34 +142,32 @@ module.exports = (client) => {
             return interaction.reply({ content: '❌ Dados expiraram.', flags: 64 });
           }
   
-          if (interaction.customId === 'select_recrutador') {
-  
-      dados.recrutador = interaction.values[0];
-  
-      const cargosOptions = Object.entries(config.cargosSistema)
-          .map(([id, data]) => {
+        if (interaction.customId === 'select_recrutador') {
+
+          dados.recrutador = interaction.values[0];
+      
+          const cargosOptions = Object.entries(config.cargosSistema)
+            .map(([id, data]) => {
               const role = interaction.guild.roles.cache.get(id);
-  
+      
               return {
-                  label: role ? role.name : data.nome,
-                  value: id
+                label: role ? role.name : data.nome,
+                value: id
               };
-          });
-  
-      const selectCargo = new ActionRowBuilder()
-          .addComponents(
-              new StringSelectMenuBuilder()
-                  .setCustomId('select_cargo')
-                  .setPlaceholder('Selecione o cargo')
-                  .addOptions(cargosOptions)
+            });
+      
+          const selectCargo = new ActionRowBuilder().addComponents(
+            new StringSelectMenuBuilder()
+              .setCustomId('select_cargo')
+              .setPlaceholder('Selecione o cargo')
+              .addOptions(cargosOptions)
           );
-  
-      return interaction.update({
-          content: 'Agora selecione o cargo:',
-          components: [selectCargo]
-      });
-}
-        
+      
+          return interaction.update({
+            content: 'Agora selecione o cargo:',
+            components: [selectCargo]
+          });
+        }          
         /*if (interaction.customId === 'select_recrutador') {
           dados.recrutador = interaction.values[0];
           return interaction.reply({ content: '✅ Recrutador selecionado!', flags: 64 });
