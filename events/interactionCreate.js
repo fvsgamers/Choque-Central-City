@@ -220,6 +220,7 @@ module.exports = (client) => {
 
         const id = getField('ID');
         const nome = getField('Nome');
+        const sobrenome = getField('Sobrenome');
         const telefone = getField('Telefone');
 
         const sistema = config.cargosSistema[cargoEscolhido];
