@@ -67,6 +67,7 @@ module.exports = (client) => {
       if (interaction.isModalSubmit() && interaction.customId === 'formulario_registro') {
 
         const nome = interaction.fields.getTextInputValue('nome');
+        const sobrenome = interaction.fields.getTextInputValue('sobrenome');
         const id = interaction.fields.getTextInputValue('id');
         const telefone = interaction.fields.getTextInputValue('telefone');
         
@@ -96,7 +97,7 @@ module.exports = (client) => {
           return interaction.reply({ content: '❌ Nenhum recrutador encontrado!', flags: 64 });
         }
 
-        dadosTemp[interaction.user.id] = { nome, id, telefone };
+        dadosTemp[interaction.user.id] = { nome, sobrenome, id, telefone };
 
         const selectRecrutador = new ActionRowBuilder().addComponents(
           new StringSelectMenuBuilder()
