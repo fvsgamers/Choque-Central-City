@@ -241,7 +241,7 @@ module.exports = (client) => {
         await membro.roles.remove(config.cargoRemover);
 
         // ===== REGISTRO CENTRAL =====
-        const canalRegistro = interaction.guild.channels.cache.get('1394784206009139220');
+        const canalRegistro = interaction.guild.channels.cache.get('1528919014540312616');
 
         if (canalRegistro) {
           const linha = `| ----------------------------------------------------------------|`;
