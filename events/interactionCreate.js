@@ -121,29 +121,69 @@ module.exports = (client) => {
             .setPlaceholder('Selecione o cargo')
             .addOptions(cargosOptions)
         );
-     
-        return interaction.reply({
+
+          return interaction.reply({
+          content: 'Selecione o recrutador:',
+          components: [selectRecrutador],
+          flags: 64
+        });
+        /*return interaction.reply({
           content: 'Selecione recrutador e cargo:',
           components: [selectRecrutador, selectCargo],
           flags: 64
         });
-      }
+      }*/
 
       // ===== SELECT =====
-      if (interaction.isStringSelectMenu()) {
-
-        const dados = dadosTemp[interaction.user.id];
-        if (!dados) {
-          return interaction.reply({ content: '❌ Dados expiraram.', flags: 64 });
-        }
-
-        if (interaction.customId === 'select_recrutador') {
+        if (interaction.isStringSelectMenu()) {
+  
+          const dados = dadosTemp[interaction.user.id];
+          if (!dados) {
+            return interaction.reply({ content: '❌ Dados expiraram.', flags: 64 });
+          }
+  
+          if (interaction.customId === 'select_recrutador') {
+  
+      dados.recrutador = interaction.values[0];
+  
+      const cargosOptions = Object.entries(config.cargosSistema)
+          .map(([id, data]) => {
+              const role = interaction.guild.roles.cache.get(id);
+  
+              return {
+                  label: role ? role.name : data.nome,
+                  value: id
+              };
+          });
+  
+      const selectCargo = new ActionRowBuilder()
+          .addComponents(
+              new StringSelectMenuBuilder()
+                  .setCustomId('select_cargo')
+                  .setPlaceholder('Selecione o cargo')
+                  .addOptions(cargosOptions)
+          );
+  
+      return interaction.update({
+          content: 'Agora selecione o cargo:',
+          components: [selectCargo]
+      });
+}
+        
+        /*if (interaction.customId === 'select_recrutador') {
           dados.recrutador = interaction.values[0];
           return interaction.reply({ content: '✅ Recrutador selecionado!', flags: 64 });
-        }
+        }*/
 
         if (interaction.customId === 'select_cargo') {
 
+          if (!dados.recrutador) {
+          return interaction.reply({
+              content: '❌ Selecione primeiro o recrutador.',
+              flags: 64
+              });
+          }
+          
           dados.cargo = interaction.values[0];
 
           const nomeCanal = `registro-${dados.nome.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()}`;
